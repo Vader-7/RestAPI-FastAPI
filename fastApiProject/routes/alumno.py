@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from fastApiProject.schemes.alumno import Alumno
-from fastApiProject.configbs.db import cursor
-from fastApiProject.configbs.db import conection
+from schemes.alumno import Alumno
+from configbs.db import cursor
+from configbs.db import conection
 alumno = APIRouter()
 
 @alumno.get('/alumnos')

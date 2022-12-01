@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from fastApiProject.schemes.clase import Clase
-from fastApiProject.configbs.db import cursor
-from fastApiProject.configbs.db import conection
+from schemes.clase import Clase
+from configbs.db import cursor
+from configbs.db import conection
 clase = APIRouter()
 
 

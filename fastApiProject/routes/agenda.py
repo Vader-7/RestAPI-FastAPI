@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from fastApiProject.schemes.agenda import Agenda
-from fastApiProject.configbs.db import cursor
-from fastApiProject.configbs.db import conection
+from schemes.agenda import Agenda
+from configbs.db import cursor
+from configbs.db import conection
 agenda = APIRouter()
 
 @agenda.get('/agenda')

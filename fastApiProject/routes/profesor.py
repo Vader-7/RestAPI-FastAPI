@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from fastApiProject.schemes.profesor import Profesor
-from fastApiProject.configbs.db import cursor
-from fastApiProject.configbs.db import conection
+from schemes.profesor import Profesor
+from configbs.db import cursor
+from configbs.db import conection
 profesor = APIRouter()
 
 @profesor.get('/profesores')
