@@ -12,9 +12,33 @@ async def getClases():
 
 @clase.post('/clases')
 async def postClases(clase: Clase):
-    cursor.execute('INSERT INTO clases(id_clas, horario_ini_clas, horario_fin_clas, id_asig) VALUES(:id_clas, :horario_ini, :horario_fin, :id_asig)', clase.dict())
-    conection.commit()
-    return clase.dict(), 'Clase creada'
+    cursor._verify_open()
+    try:
+        # Check if the class already exists
+        cursor.execute('SELECT * FROM clases WHERE id_clas = :id_clas', [clase.id_clas])
+        existing_class = cursor.fetchone()
+        if existing_class:
+            # Return an error if the class already exists
+            return {"error": "La clase ya existe"}, 400
+        # Check if the asignatura exists
+        cursor.execute('SELECT * FROM asignatura WHERE id_asig = :id_asig', [clase.id_asig])
+        existing_asignatura = cursor.fetchone()
+        if not existing_asignatura:
+            # Return an error if the asignatura does not exist
+            return {"error": "La asignatura no existe"}, 404
+
+        # Insert the new class into the database
+        cursor.execute(
+            'INSERT INTO clases(id_clas, horario_ini_clas, horario_fin_clas, id_asig) VALUES(:id_clas, :horario_ini, :horario_fin, :id_asig)',
+            clase.dict())
+        conection.commit()
+
+        # Return the new class
+        return clase.dict(), 'Clase creada'
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        conection.close()
 
 
 @clase.put('/clases/{id}')

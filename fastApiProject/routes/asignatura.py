@@ -6,7 +6,8 @@ asignatura = APIRouter()
 
 @asignatura.get('/asignaturas')
 async def getAsignaturas():
-    return cursor.execute('SELECT * FROM asignatura').fetchall(), 'Asignaturas obtenidas'
+    #order by id
+    return cursor.execute('SELECT * FROM asignatura ORDER BY id_asig').fetchall(), 'Asignaturas obtenidas'
 
 @asignatura.post('/asignaturas')
 async def postAsignaturas(asignatura: Asignatura):
